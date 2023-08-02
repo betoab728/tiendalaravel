@@ -1,0 +1,12 @@
+#navigation-menu{
+    height: calc(100vh - 4rem);
+    [x-cloak] {
+
+    display: none !important;
+
+    }
+}
+.navigation-link:hover .navigation-submenu {
+    display: block !important;
+}
+ 
