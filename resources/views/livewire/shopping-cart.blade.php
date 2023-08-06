@@ -2,6 +2,8 @@
    <section class="bg-white rounded-lg shadow-lg p-6 text-gray-700">
       <h1 class="text-lg font-semibold mb-6">CARRO DE COMPRAS</h1>
 
+      @if (Cart::count())
+          
       <table class="table-auto w-full">
          <thead>
             <tr>
@@ -38,7 +40,11 @@
                   </td>
                   <td class="text-center">
                      <span> USD {{$item->price}}</span>
-                     <a  class="ml-6 cursor-pointer hover:text-red-600"><i class="fas fa-trash"></i></a>
+                     <a  class="ml-6 cursor-pointer hover:text-red-600"
+                     wire:click="delete('{{$item->rowId}}')"
+                     wire:loading.class="text-red-600 opacity-25"
+                     wire:target="delete('{{$item->rowId}}')">
+                      <i class="fas fa-trash"></i></a>
                   </td>
                   <td>
                      
@@ -61,5 +67,35 @@
             @endforeach
          </tbody>
       </table>
+      <a class="text-sm cursor-pointer hover:underline mt-3 inline-block" wire:click="destroy"><i class="fas fa-trash"></i> Borrar Carrito</a>
+
+      @else
+          <div class="flex flex-col items-center">
+            <x-cart/>
+            <p class="text-lg text-gray-700 mt-4">Carro de compras vacion</p>
+
+            <x-button-enlace href="/" class="mt-4 px-16">
+               ir al inicio
+            </x-button-enlace>
+
+          </div>
+      @endif
    </section>
+
+   @if (Cart::count())
+       <div class="bg-white -rounded-lg shadow-lg px-6 py-4 mt-4" >
+       <div class="flex justify-between items-center"> 
+         <div>
+            <p class="text-gray-700">
+               <span class="font-bold text-lg">total:</span>
+               USD {{Cart::subTotal()}}
+            </p>
+         </div>
+         <div>
+            <x-button-enlace href="{{route('orders.create')}}">
+               Continuar
+            </x-button-enlace>
+         </div>
+       </div>
+   @endif
 </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Routing\Route as RoutingRoute;
 use App\Http\Livewire\ShoppingCart;
+use App\Http\Livewire\CreateOrder;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,8 @@ Route::middleware([
     })->name('dashboard');
 }); 
 
+
+Route::get('orders/create',CreateOrder::class)->middleware('auth')->name('orders.create');
 
 //  Route::get('prueba',function(){
 //     \Cart::destroy();
