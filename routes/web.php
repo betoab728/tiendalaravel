@@ -4,10 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeControler;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Routing\Route as RoutingRoute;
 use App\Http\Livewire\ShoppingCart;
 use App\Http\Livewire\CreateOrder;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,20 +32,6 @@ Route::get('products/{product}', [ProductController::class,'show'])->name('produ
 
 Route::get('shopping-cart', ShoppingCart::class)->name('shopping-cart');
 
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-}); 
-
-
 Route::get('orders/create',CreateOrder::class)->middleware('auth')->name('orders.create');
 
-//  Route::get('prueba',function(){
-//     \Cart::destroy();
-// }); 
+Route::get('orders/{order}/payment',[OrderController::class,'payment'])->name('orders.payment');

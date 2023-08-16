@@ -72,7 +72,7 @@
       @else
           <div class="flex flex-col items-center">
             <x-cart/>
-            <p class="text-lg text-gray-700 mt-4">Carro de compras vacion</p>
+            <p class="text-lg text-gray-700 mt-4">Carro de compras vacio</p>
 
             <x-button-enlace href="/" class="mt-4 px-16">
                ir al inicio
