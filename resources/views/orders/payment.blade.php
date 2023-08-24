@@ -1,4 +1,24 @@
 <x-app-layout>
+
+    @php
+        // SDK de Mercado Pago
+        require base_path('vendor/autoload.php');
+        // Agrega credenciales
+        MercadoPago\SDK::setAccessToken(config('services.mercadopago.token'));
+
+        // Crea un objeto de preferencia
+        $preference = new MercadoPago\Preference();
+
+        // Crea un ítem en la preferencia
+        $item = new MercadoPago\Item();
+        $item->title = 'Mi producto';
+        $item->quantity = 1;
+        $item->unit_price = 75.56;
+        $preference->items = array($item);
+        $preference->save();
+    @endphp
+        
+  
     <div class="container py-8">  
         <div class="bg-white rounded-lg shadow-lg px-6 py-4 mb-6">
             <p class="text-gray-700 uppercase"><span class="font-semibold">Numero de Orden: </span>Orden- {{$order->id}}</p>
@@ -85,10 +105,26 @@
                 <p class="text-lg font-semibold uppercase">
                     TOTAL: {{$order->total}} USD
                 </p>
+                <div  id="wallet_container">
+
+                </div>
             </div>
 
         </div>
 
     </div>
+ 
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+
+
+    <script>
+        const mp = new MercadoPago("{{config('services.mercadopago.key')}}");
+        const bricksBuilder = mp.bricks();
+        mp.bricks().create("wallet", "wallet_container", {
+         initialization: {
+        preferenceId: '{{  $preference->id }}',
+        },
+        });
+    </script>
 
 </x-app-layout>    
