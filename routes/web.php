@@ -10,7 +10,7 @@ use Illuminate\Routing\Route as RoutingRoute;
 use App\Http\Livewire\ShoppingCart;
 use App\Http\Livewire\CreateOrder;
 
-
+use App\Http\Controllers\WebhooksController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,4 +34,10 @@ Route::get('shopping-cart', ShoppingCart::class)->name('shopping-cart');
 
 Route::get('orders/create',CreateOrder::class)->middleware('auth')->name('orders.create');
 
+route::get('orders/{order}',[OrderController::class,'show'])->name('orders.show');
+
 Route::get('orders/{order}/payment',[OrderController::class,'payment'])->name('orders.payment');
+
+Route::get('orders/{order}/pay',[OrderController::class,'pay'])->name('orders.pay');
+
+Route::post('webhooks',WebhooksController::class);
